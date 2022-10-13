@@ -183,6 +183,11 @@ func FetchContestData(contestid string) {
 		fmt.Println(err)
 		return
 	}
-	tag := fmt.Sprintf("weekly-contest-%s", contestid)
+	var tag string
+	if contestid[0] == 'b' {
+		tag = fmt.Sprintf("biweekly-contest-%s", contestid[1:])
+	} else {
+		tag = fmt.Sprintf("weekly-contest-%s", contestid)
+	}
 	GenLeetCodeTestsBySession(ses, tag, false, tag, "")
 }
