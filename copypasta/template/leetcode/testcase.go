@@ -72,8 +72,9 @@ func genCppContent(defaultCode string) []byte {
 	pos1 := bytes.Index(content, []byte(tag)) + len(tag)
 	pos2 := bytes.Index(content, []byte(methodTag)) + len(methodTag)
 
+	solutionStart := strings.Index(defaultCode, "class Solution")
 	pattern := regexp.MustCompile(" ([_A-z0-9]+)\\(")
-	rs := pattern.FindStringSubmatch(defaultCode)
+	rs := pattern.FindStringSubmatch(defaultCode[solutionStart:])
 	methodName := rs[1]
 
 	codes := []byte{}
