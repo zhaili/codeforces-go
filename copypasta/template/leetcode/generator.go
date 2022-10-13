@@ -4,16 +4,18 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
+	"net/url"
+	"os"
+	"strconv"
+	"strings"
+	"sync"
+	"time"
+
 	"github.com/levigross/grequests"
 	"github.com/skratchdot/open-golang/open"
 	"golang.org/x/net/html"
 	"golang.org/x/net/html/atom"
-	"io"
-	"net/url"
-	"os"
-	"strings"
-	"sync"
-	"time"
 )
 
 const host = "leetcode.cn"
@@ -256,8 +258,9 @@ type problem struct {
 	funcLos       []int
 	customComment string
 
-	sampleIns  [][]string
-	sampleOuts [][]string
+	sampleIns     [][]string
+	sampleOuts    [][]string
+	sampleInTexts string
 
 	contestDir string
 }
@@ -319,7 +322,7 @@ func (p *problem) parsePossibleSampleTexts(texts []string, parseArgs bool) []str
 }
 
 // 获取题目样例和代码
-func (p *problem) parseHTML(session *grequests.Session) (err error) {
+func (p *problem) parseHTML(session *grequests.Session, lang string) (err error) {
 	defer func() {
 		// visit htmlNode may cause panic
 		if er := recover(); er != nil {
@@ -356,9 +359,24 @@ func (p *problem) parseHTML(session *grequests.Session) (err error) {
 	for o := bodyNode.FirstChild; o != nil; o = o.NextSibling {
 		if o.DataAtom == atom.Script && o.FirstChild != nil {
 			jsText := o.FirstChild.Data
+
+			if start := strings.Index(jsText, "questionExampleTestcases:"); start != -1 {
+				end := strings.Index(jsText, "categoryTitle")
+
+				testCaseText := jsText[start+len("questionExampleTestcases:") : end]
+				a := strings.Index(testCaseText, "'")
+				b := strings.LastIndex(testCaseText, "'")
+				testCaseText = testCaseText[a+1 : b]
+
+				testCaseText, _ = strconv.Unquote("\"" + testCaseText + "\"")
+				//testCaseText = strings.Replace(testCaseText, "\\u000A", "\n", -1)
+				p.sampleInTexts = testCaseText
+			}
+
 			if start := strings.Index(jsText, "codeDefinition:"); start != -1 {
 				end := strings.Index(jsText, "enableTestMode")
 				jsonText := jsText[start+len("codeDefinition:") : end]
+
 				jsonText = strings.TrimSpace(jsonText)
 				jsonText = jsonText[:len(jsonText)-3] + "]" // remove , at end
 				jsonText = strings.Replace(jsonText, `'`, `"`, -1)
@@ -372,7 +390,7 @@ func (p *problem) parseHTML(session *grequests.Session) (err error) {
 				}
 
 				for _, template := range data {
-					if template.Value == "golang" {
+					if template.Value == lang {
 						p.defaultCode = strings.TrimSpace(template.DefaultCode)
 						// 下面解析样例需要知道 p.isFuncProblem
 						p.funcName, p.isFuncProblem, p.funcLos = parseCode(p.defaultCode)
@@ -381,10 +399,11 @@ func (p *problem) parseHTML(session *grequests.Session) (err error) {
 				}
 				break
 			}
+
 		}
 	}
 	if p.defaultCode == "" {
-		fmt.Println("解析失败，未找到 Go 代码模板！")
+		fmt.Println("解析失败，未找到 %s 代码模板！", lang)
 	}
 
 	var parseNode func(*html.Node)
@@ -579,7 +598,7 @@ func handleProblems(session *grequests.Session, problems []*problem) error {
 		go func(p *problem) {
 			defer wg.Done()
 
-			if err := p.parseHTML(session); err != nil {
+			if err := p.parseHTML(session, "golang"); err != nil {
 				fmt.Fprintln(os.Stderr, err)
 			}
 
@@ -634,6 +653,7 @@ func updateComment(cmt string) string {
 func GenLeetCodeTests(username, password, contestTag string, openWebPage bool, contestDir, customComment string) error {
 	session, err := login(username, password)
 	if err != nil {
+		fmt.Println("登录失败")
 		return err
 	}
 	fmt.Println("登录成功")
