@@ -99,7 +99,7 @@ func (p *problem) writeCppFile() error {
 }
 
 func (p *problem) writeTestCaseFile() error {
-	lines := []string{strconv.Itoa(len(p.sampleIns)), p.sampleInTexts}
+	lines := []string{strconv.Itoa(len(p.sampleOuts)), p.sampleInTexts}
 	testDataStr := strings.Join(lines, "\n")
 
 	filePath := p.contestDir + fmt.Sprintf("/in1.txt")
