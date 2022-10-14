@@ -3,6 +3,7 @@ package leetcode
 import (
 	"encoding/json"
 	"fmt"
+	"html"
 	"io/ioutil"
 	"log"
 	"regexp"
@@ -125,6 +126,7 @@ func parseCase(text string) string {
 		end = posEnd[0]
 	}
 	text = strings.TrimSpace(text[start:end])
+	text = html.UnescapeString(text)
 	return text
 }
 
