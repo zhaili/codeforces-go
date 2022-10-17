@@ -132,6 +132,10 @@ func FetchProblem(problemid string) (err error) {
 	session, err := loginByCookie(cookiePath)
 
 	titleSlug := queryProblemSlug(session, problemid)
+	if len(titleSlug) == 0 {
+		fmt.Printf("Problem %s not found.\n", problemid)
+		return
+	}
 
 	sampleOuts, sampleIns, codes := queryProblemDetail(session, titleSlug)
 
