@@ -22,8 +22,14 @@ const templateCpp = "~/code/cf/lc/lc.cxx"
 const templateH = "~/code/cf/lc/lc.hpp"
 
 // use cookie login
-func login_by_cookie(cookie string) (session *grequests.Session, err error) {
+func loginByCookie(cookiePath string) (session *grequests.Session, err error) {
 	const ua = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36"
+	content, err := ioutil.ReadFile(ExpandHomePath(cookiePath))
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	cookie := strings.TrimSuffix(string(content), "\n")
 	ro := &grequests.RequestOptions{UserAgent: ua,
 		Headers: map[string]string{"cookie": cookie}}
 	session = grequests.NewSession(ro)
@@ -172,14 +178,7 @@ func ExpandHomePath(path string) string {
 }
 
 func FetchContestData(contestid string) {
-	content, err := ioutil.ReadFile(ExpandHomePath(cookiePath))
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
-	cookie_str := strings.TrimSuffix(string(content), "\n")
-
-	ses, err := login_by_cookie(cookie_str)
+	ses, err := loginByCookie(cookiePath)
 	if err != nil {
 		fmt.Println(err)
 		return

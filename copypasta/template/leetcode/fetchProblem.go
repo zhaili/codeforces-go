@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"html"
-	"io/ioutil"
-	"log"
 	"regexp"
 	"strings"
 
@@ -131,14 +129,7 @@ func parseCase(text string) string {
 }
 
 func FetchProblem(problemid string) (err error) {
-	content, err := ioutil.ReadFile(ExpandHomePath(cookiePath))
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
-	cookie_str := strings.TrimSuffix(string(content), "\n")
-
-	session, err := login_by_cookie(cookie_str)
+	session, err := loginByCookie(cookiePath)
 
 	titleSlug := queryProblemSlug(session, problemid)
 
