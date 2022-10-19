@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"html"
 	"io/ioutil"
 	"log"
 	"os"
@@ -15,6 +14,7 @@ import (
 	"sync"
 	"time"
 
+	goquery "github.com/PuerkitoBio/goquery"
 	"github.com/levigross/grequests"
 	"github.com/skratchdot/open-golang/open"
 )
@@ -109,20 +109,35 @@ query getQuestionDetail($titleSlug: String!) {
 
 	content := question["content"].(string)
 
-	for {
-		start := strings.Index(content, "<pre>")
-		end := strings.Index(content, "</pre>")
-		if start == -1 || end == -1 {
-			break
-		}
+	sampleOuts, err = parseSampleText(content)
 
-		testCase := content[start : end+6]
-		sampleOuts = append(sampleOuts, []string{parseCase(testCase)})
-
-		content = content[end+6:]
-	}
 	sampleIns = question["exampleTestcases"].(string)
 	codes = parseCodeDefinition(question["codeDefinition"].(string), "cpp")
+	return
+}
+
+func parseSampleText(content string) (sampleOuts [][]string, err error) {
+	doc, err := goquery.NewDocumentFromReader(strings.NewReader(content))
+	doc.Find("pre").Each(func(_ int, s *goquery.Selection) {
+		text := s.Text()
+
+		patternStart := regexp.MustCompile("[Oo]utput:?")
+		pos := patternStart.FindStringIndex(text)
+		if pos == nil {
+			return
+		}
+		start := pos[1]
+
+		patternEnd := regexp.MustCompile("[Ee]xplanation")
+		posEnd := patternEnd.FindStringIndex(text)
+		var end = len(text)
+		if posEnd != nil {
+			end = posEnd[0]
+		}
+		text = strings.TrimSpace(text[start:end])
+		sampleOuts = append(sampleOuts, []string{text})
+	})
+
 	return
 }
 
@@ -141,27 +156,6 @@ func parseCodeDefinition(jsonText string, lang string) string {
 		}
 	}
 	return ""
-}
-
-func parseCase(text string) string {
-	patternStart := regexp.MustCompile("utput:?</strong>")
-	pos := patternStart.FindStringIndex(text)
-	if pos == nil {
-		return ""
-	}
-	start := pos[1]
-
-	patternEnd := regexp.MustCompile("\n.*Explanation")
-	posEnd := patternEnd.FindStringIndex(text)
-	var end = -1
-	if posEnd == nil {
-		end = strings.LastIndex(text, "</pre>")
-	} else {
-		end = posEnd[0]
-	}
-	text = strings.TrimSpace(text[start:end])
-	text = html.UnescapeString(text)
-	return text
 }
 
 func FetchProblem(problemid string) (err error) {

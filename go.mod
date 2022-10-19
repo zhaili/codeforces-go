@@ -3,17 +3,19 @@ module github.com/EndlessCheng/codeforces-go
 go 1.17
 
 require (
+	github.com/PuerkitoBio/goquery v1.8.0
+	github.com/docopt/docopt-go v0.0.0-20180111231733-ee0de3bc6815
 	github.com/emirpasic/gods v1.12.0
 	github.com/levigross/grequests v0.0.0-20190908174114-253788527a1a
 	github.com/shirou/gopsutil/v3 v3.22.3
 	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966
 	github.com/stretchr/testify v1.7.1
 	github.com/wcharczuk/go-chart v2.0.1+incompatible
-	github.com/docopt/docopt-go v0.0.0-20180111231733-ee0de3bc6815
 	golang.org/x/net v0.0.0-20210917221730-978cfadd31cf
 )
 
 require (
+	github.com/andybalholm/cascadia v1.3.1 // indirect
 	github.com/blend/go-sdk v1.20211025.3 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
