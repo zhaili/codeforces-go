@@ -64,6 +64,8 @@ https://codeforces.com/problemset/problem/863/E
 从最大值入手 https://codeforces.com/problemset/problem/1381/B
 等效性 https://leetcode-cn.com/contest/biweekly-contest-8/problems/maximum-number-of-ones/
 https://leetcode-cn.com/contest/biweekly-contest-31/problems/minimum-number-of-increments-on-subarrays-to-form-a-target-array/
+贡献 http://codeforces.com/problemset/problem/912/D
+贡献 https://codeforces.com/problemset/problem/1208/E
 */
 
 /* 逆向思维 / 正难则反：从终点出发 / 小学奥数告诉我们，不可行方案永远比可行方案好求
@@ -630,6 +632,50 @@ func _() {
 			sum += int64(v) * int64(2*i+1-n)
 		}
 		return
+	}
+
+	// 离散差分，传入闭区间列表 ps，不要求有序
+	// https://codeforces.com/problemset/problem/1420/D
+	diffMap := func(ps []struct{ l, r int }) {
+		diff := map[int]int{} // or make with cap
+		for _, p := range ps {
+			diff[p.l]++
+			diff[p.r+1]--
+		}
+		xs := make([]int, 0, len(diff)) // 坐标
+		for x := range diff {
+			xs = append(xs, x)
+		}
+		sort.Ints(xs)
+
+		// 左闭右开区间 [_cnt[i].x, _cnt[i+1].x) 中的值都是 _cnt[i].c
+		type _pair struct{ x, c int }
+		_cnt := make([]_pair, len(xs))
+		_c := 0
+		for _, x := range xs {
+			_c += diff[x]
+			_cnt = append(_cnt, _pair{x, _c})
+		}
+		// 返回 x 被多少个 ps 中的区间包含（由于 ps 是闭区间，端点也算包含）
+		query := func(x int) int {
+			i := sort.Search(len(_cnt), func(i int) bool { return _cnt[i].x > x }) - 1
+			if i < 0 {
+				return 0
+			}
+			return _cnt[i].c
+		}
+
+		{
+			// 如果只对左端点感兴趣，可以改为如下写法
+			_cnt := make(map[int]int, len(xs)) // 前缀和
+			_c := 0
+			for _, x := range xs {
+				_c += diff[x]
+				_cnt[x] = _c
+			}
+		}
+
+		_ = query
 	}
 
 	// 二维差分
@@ -1213,7 +1259,7 @@ func _() {
 		pow, mul, toAnyBase, digits,
 		subSum, recoverArrayFromSubsetSum, subSumSorted, groupPrefixSum, circularRangeSum, initSum2D, querySum2D, rowColSum, diagonalSum,
 		contributionSum,
-		diff2D,
+		diffMap, diff2D,
 		sort3, reverse, reverseInPlace, equal,
 		merge, mergeWithLimit, splitDifferenceAndIntersection, intersection, isSubset, isSubSequence, isDisjoint,
 		unique, uniqueInPlace, discrete, discrete2, discreteMap, indexMap, allSame, complement, quickSelect, contains, containsAll,

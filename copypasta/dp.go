@@ -82,7 +82,6 @@ https://www.bilibili.com/video/av77393700 LCS LIS
 https://www.bilibili.com/video/av83939419 区间 DP
 https://www.bilibili.com/video/av93356551 状态压缩 DP
 https://www.bilibili.com/video/av98090640 树形 DP
-https://www.bilibili.com/video/BV1MT4y1376C 数位 DP
 https://www.bilibili.com/video/av85636122 动态规划 · 零 - Introduction
 https://www.bilibili.com/video/av86983419 动态规划 · 一 - 序列型
 https://www.bilibili.com/video/av89052674 动态规划 · 二 - 坐标、双序列、划分 & 状态压缩
@@ -1766,6 +1765,7 @@ func _(min, max func(int, int) int, abs func(int) int) {
 	一般用 dp[i][j] 表示当前在第 i 位，前面维护了一个为 j 的值，且后面的位数可以随便选时的数字个数
 	在解释状态的含义时，网上的很多文章都漏了「后面的位数可以随便选」这个约束，只有加上这个约束，我们才能根据「是否紧贴上界」来完成相对应的代码逻辑
 
+	视频讲解，从 19:30 开始 https://www.bilibili.com/video/BV1rS4y1s721
 	https://zhuanlan.zhihu.com/p/348851463
 	https://www.bilibili.com/video/BV1MT4y1376C
 	https://www.bilibili.com/video/BV1yT4y1u7jW

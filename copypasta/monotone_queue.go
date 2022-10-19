@@ -13,6 +13,7 @@ https://cp-algorithms.com/data_structures/stack_queue_modification.html
 https://blog.csdn.net/weixin_43914593/article/details/105791217 算法竞赛专题解析（13）：DP优化(3)--单调队列优化
 todo https://xyzl.blog.luogu.org/DQ-OP-DP
 
+模板题 https://leetcode.cn/problems/dui-lie-de-zui-da-zhi-lcof/
 https://leetcode.cn/tag/monotonic-queue/problemset/
 todo https://www.luogu.com.cn/problem/P2627
 todo http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1070
@@ -64,6 +65,7 @@ func (mq MonotoneQueue) Top() int {
 // https://www.luogu.com.cn/problem/P1886 http://poj.org/problem?id=2823
 // https://codeforces.com/problemset/problem/940/E
 // https://codeforces.com/problemset/problem/372/C（另一种做法是用堆）
+// 贡献+差分数组 https://codeforces.com/problemset/problem/1208/E
 func FixedSizeMax(a []int, fixedSize int) []int {
 	n := len(a)
 	q := MonotoneQueue{} // 最大/最小由 less 来控制
