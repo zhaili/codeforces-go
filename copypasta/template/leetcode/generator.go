@@ -403,7 +403,7 @@ func (p *problem) parseHTML(session *grequests.Session, lang string) (err error)
 		}
 	}
 	if p.defaultCode == "" {
-		fmt.Println("解析失败，未找到 %s 代码模板！", lang)
+		fmt.Printf("解析失败，未找到 %s 代码模板！\n", lang)
 	}
 
 	var parseNode func(*html.Node)
