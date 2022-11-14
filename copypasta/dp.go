@@ -226,6 +226,7 @@ func _(min, max func(int, int) int, abs func(int) int) {
 	/* 线性 DP
 	① 前缀/后缀之间的转移，例如从 dp[i-1] 转移到 dp[i]，或者从 dp[j] 转移到 dp[i]
 	LC198 https://leetcode.cn/problems/house-robber/
+	- 变形：恰好选 floor(n/2) 个 https://atcoder.jp/contests/abc162/tasks/abc162_f
 	LC213 https://leetcode.cn/problems/house-robber-ii/
 	- 相似题目 https://atcoder.jp/contests/abc251/tasks/abc251_e
 	LC276 https://leetcode.cn/problems/paint-fence/
@@ -273,7 +274,7 @@ func _(min, max func(int, int) int, abs func(int) int) {
 
 	// 最大子段和 https://www.luogu.com.cn/problem/P1115
 	// 有两种思路
-	// 1. 定义状态 dp[i] 表示以 a[i] 结尾的最大子段和，则有状态转移方程 dp[i]=max(dp[i−1],0)+a[i]
+	// 1. 定义状态 dp[i] 表示以 a[i] 结尾的最大子段和，则有状态转移方程 dp[i]=max(dp[i−1],0)+a[i]，答案为 max(dp)
 	// 2. 遍历 a 的同时维护前缀和的最小值，则遍历到 a[i] 时，当前最大子段和为 sum[i]-min(sum[j]), j<i
 	// 算法导论 练习4.1-5
 	// [题型总结] 关于最大子段和及其变式 https://www.luogu.com.cn/blog/wey-yzyl/zui-tai-zi-duan-hu-ji-ji-bian-shi-di-qi-shi
@@ -468,6 +469,7 @@ func _(min, max func(int, int) int, abs func(int) int) {
 	//     LC712  https://leetcode-cn.com/problems/minimum-ascii-delete-sum-for-two-strings/
 	//     LC1035 https://leetcode-cn.com/problems/uncrossed-lines/
 	//     LC1312 https://leetcode-cn.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/ https://www.luogu.com.cn/problem/P1435
+	//     https://atcoder.jp/contests/abc185/tasks/abc185_e
 	//     其中一个改为子串 https://codeforces.com/problemset/problem/163/A
 	//     https://codeforces.com/problemset/problem/1446/B
 	// 多个排列的 LCS（转化成 DAG 最长路）https://codeforces.com/problemset/problem/463/D
@@ -552,6 +554,7 @@ func _(min, max func(int, int) int, abs func(int) int) {
 
 	// 最长回文子序列 (LPS)
 	// 即 LCS(s, reverse(s))
+	// 回文串见后面
 	// LC516 https://leetcode-cn.com/problems/longest-palindromic-subsequence/
 	// LC1216 https://leetcode-cn.com/problems/valid-palindrome-iii/
 	// LC1246 https://leetcode.cn/problems/palindrome-removal/
@@ -869,32 +872,68 @@ func _(min, max func(int, int) int, abs func(int) int) {
 	// 边界 dp[0][0] = 1
 	// todo https://atcoder.jp/contests/abc234/tasks/abc234_f
 
+	// 回文串：中心扩展法
+	// 原理见 https://leetcode.cn/problems/palindromic-substrings/solutions/379987/hui-wen-zi-chuan-by-leetcode-solution/
+	// LC647 https://leetcode.cn/problems/palindromic-substrings/
+	// LC2472 https://leetcode.cn/problems/maximum-number-of-non-overlapping-palindrome-substrings/
+	palindromeO1Space := func(s string) {
+		n := len(s)
+		for i := 0; i < 2*n-1; i++ { // i 为偶数表示奇回文串，i 为奇数表示偶回文串
+			l, r := i/2, i/2+i%2
+			// 从 s[i/2..i/2(+1)] 开始扩展
+			// do init ...
+
+			for l >= 0 && r < n && s[l] == s[r] {
+				// do s[l..r] ...
+
+				l--
+				r++
+			}
+		}
+	}
+
+	// O(n^2) 求每个子串是否是回文的
+	// 一般用于 DP 预处理
+	// LC132 https://leetcode-cn.com/problems/palindrome-partitioning-ii/
+	// LC2472 https://leetcode.cn/problems/maximum-number-of-non-overlapping-palindrome-substrings/
+	// https://codeforces.com/problemset/problem/835/D
+	isPalindrome := func(s string) [][]bool {
+		n := len(s)
+		isP := make([][]bool, n)
+		for i := range isP {
+			isP[i] = make([]bool, n)
+		}
+		for l := n - 1; l >= 0; l-- {
+			for r := l; r < n; r++ {
+				isP[l][r] = s[l] == s[r] && (r-l < 3 || isP[l+1][r-1])
+			}
+		}
+		return isP
+	}
+
 	// 回文串最小分割次数
 	// 紫书例题 9-7，UVa 11584 https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=27&page=show_problem&problem=2631
 	// LC132 https://leetcode-cn.com/problems/palindrome-partitioning-ii/
 	minPalindromeCut := func(s string) int {
 		n := len(s)
-		g := make([][]bool, n)
-		for i := range g {
-			g[i] = make([]bool, n)
-			for j := range g[i] {
-				g[i][j] = true
-			}
+		isP := make([][]bool, n)
+		for i := range isP {
+			isP[i] = make([]bool, n)
 		}
-		for i := n - 1; i >= 0; i-- {
-			for j := i + 1; j < n; j++ {
-				g[i][j] = s[i] == s[j] && g[i+1][j-1]
+		for l := n - 1; l >= 0; l-- {
+			for r := l; r < n; r++ {
+				isP[l][r] = s[l] == s[r] && (r-l < 3 || isP[l+1][r-1])
 			}
 		}
 
 		f := make([]int, n)
-		for i := range f {
-			if g[0][i] { // f[i] = 0
+		for i, prefixP := range isP[0] {
+			if prefixP { // f[i] = 0
 				continue
 			}
 			f[i] = int(1e9)
 			for j := 0; j < i; j++ {
-				if g[j+1][i] {
+				if isP[j+1][i] {
 					f[i] = min(f[i], f[j]+1)
 				}
 			}
@@ -1035,7 +1074,7 @@ func _(min, max func(int, int) int, abs func(int) int) {
 		for i := n - 1; i >= 0; i-- {
 			fa[i] = make([]int, maxW+1)
 			for j := range fa[i] {
-				fa[i][j] = j
+				fa[i][j] = j // 注意：<w 的转移来源也要标上！
 			}
 			v, w := values[i], weights[i]
 			for j := maxW; j >= w; j-- {
@@ -1046,7 +1085,7 @@ func _(min, max func(int, int) int, abs func(int) int) {
 			}
 		}
 		for i, j := 0, maxW; i < n; {
-			if fa[i][j] == j {
+			if fa[i][j] == j { // &&  weights[i] > 0      考虑重量为 0 的情况，必须都选上
 				i++
 			} else {
 				ans = append(ans, i+1) // 下标从 1 开始
@@ -2178,6 +2217,9 @@ func _(min, max func(int, int) int, abs func(int) int) {
 	// 扔蛋问题 LC887 https://leetcode-cn.com/problems/super-egg-drop/
 
 	/* 树形 DP
+	一般是从自底向上计算的，也就是根据子树返回值来计算父节点的值
+	也有自顶向下的写法，见后面
+
 	https://blog.csdn.net/weixin_43914593/article/details/107145592
 	https://codeforces.com/blog/entry/20935
 	https://codeforces.com/blog/entry/63257
@@ -2196,10 +2238,14 @@ func _(min, max func(int, int) int, abs func(int) int) {
 	可以重复走 https://codeforces.com/problemset/problem/1220/E
 	巧妙的转换 https://codeforces.com/problemset/problem/734/E
 	https://codeforces.com/problemset/problem/1292/C
+
+	自顶向下
+	https://leetcode.cn/problems/U7WvvU/ 题解 https://leetcode.cn/problems/U7WvvU/solution/shu-xing-dp-by-endlesscheng-isuo/
 	*/
 
 	// 树的直径（两遍 DFS 求法另见 graph_tree.go 中的 diameter）
 	// LC1245 https://leetcode-cn.com/problems/tree-diameter/
+	// 变形 LC2246 https://leetcode.cn/problems/longest-path-with-different-adjacent-characters/
 	// 变形 https://codeforces.com/problemset/problem/1238/F
 	diameter := func(st int, g [][]int) (diameter int) {
 		var f func(v, fa int) int
@@ -2645,7 +2691,7 @@ func _(min, max func(int, int) int, abs func(int) int) {
 		lcs, lcsPath, longestPalindromeSubsequence,
 		lisSlow, lis, lisAll, cntLis, lcis, lcisPath, countLIS,
 		distinctSubsequence,
-		minPalindromeCut,
+		palindromeO1Space, isPalindrome, minPalindromeCut,
 
 		zeroOneKnapsack, zeroOneKnapsackExactlyFull, zeroOneKnapsackAtLeastFillUp, zeroOneWaysToSum, zeroOneKnapsackLexicographicallySmallestResult, zeroOneKnapsackByValue,
 		unboundedKnapsack, unboundedWaysToSum,

@@ -81,7 +81,9 @@ func _(min, max func(int, int) int) {
 	// https://cp-algorithms.com/string/prefix-function.html
 	// https://algs4.cs.princeton.edu/code/edu/princeton/cs/algs4/KMP.java.html
 	// 模板题 https://loj.ac/p/103 https://www.luogu.com.cn/problem/P3375
-	//       LC1392 https://leetcode-cn.com/problems/longest-happy-prefix/submissions/
+	//       LC1392 https://leetcode-cn.com/problems/longest-happy-prefix/
+	// 最长回文前缀 LC214 https://leetcode.cn/problems/shortest-palindrome/
+	// LC1316 https://leetcode.cn/problems/distinct-echo-substrings/
 	// https://codeforces.com/problemset/problem/432/D
 	// https://codeforces.com/problemset/problem/471/D
 	// 与 LCS 结合 https://codeforces.com/problemset/problem/346/B
@@ -127,6 +129,7 @@ func _(min, max func(int, int) int) {
 	// EXTRA: 最小循环节
 	// 返回循环节以及循环次数
 	// http://poj.org/problem?id=2406 https://www.luogu.com.cn/problem/UVA455
+	// LC459 https://leetcode.cn/problems/repeated-substring-pattern/
 	calcMinPeriod := func(s string) (string, int) {
 		n := len(s)
 		match := calcMaxMatchLengths(s)
@@ -277,6 +280,8 @@ func _(min, max func(int, int) int) {
 	//  https://codeforces.com/problemset/problem/1081/H
 	//  https://www.luogu.com.cn/blog/user25308/proof-cf1081h
 	//  LC1745 分割成三个非空回文子字符串 https://leetcode-cn.com/problems/palindrome-partitioning-iv/
+	// LC2472 不重叠回文子字符串（长度至少为 k）的最大数目 https://leetcode.cn/problems/maximum-number-of-non-overlapping-palindrome-substrings/
+	// - 只需要考虑长度为 k or k+1 的
 	manacher := func(s string) {
 		// 将 s 改造为 t，这样就不需要分 len(s) 的奇偶来讨论了，因为新串 t 的每个回文子串都是奇回文串（都有回文中心）
 		// s 和 t 的下标转换关系：
@@ -400,8 +405,8 @@ func _(min, max func(int, int) int) {
 		模板题 https://www.luogu.com.cn/problem/P3809 https://loj.ac/p/111
 		可重叠最长重复子串 LC1044 https://leetcode-cn.com/problems/longest-duplicate-substring/ LC1062 https://leetcode-cn.com/problems/longest-repeating-substring/
 			相当于求 max(height)，实现见下面的 longestDupSubstring
-		不可重叠最长重复子串 http://poj.org/problem?id=1743
-			可参考《算法与实现》p.223 以及 https://oi-wiki.org/string/sa/#_14
+		不可重叠最长重复子串 https://atcoder.jp/contests/abc141/tasks/abc141_e http://poj.org/problem?id=1743
+			可参考《算法与实现》p.223 以及 https://oi-wiki.org/string/sa/#是否有某字符串在文本串中至少不重叠地出现了两次
 			重要技巧：按照 height 分组，每组中根据 sa 来处理组内后缀的位置
 		可重叠的至少出现 k 次的最长重复子串 https://www.luogu.com.cn/problem/P2852 http://poj.org/problem?id=3261
 			二分答案，对 height 分组，判定组内元素个数不小于 k
@@ -416,6 +421,8 @@ func _(min, max func(int, int) int) {
 			这题可以枚举每个后缀，跳过 height[i] 个字符，然后在前缀和上二分
 		重复次数最多的连续重复子串 https://codeforces.com/edu/course/2/lesson/2/5/practice/contest/269656/problem/F http://poj.org/problem?id=3693 (数据弱)
 			核心思想是枚举长度然后计算 LCP(i,i+l)，然后看是否还能再重复一次，具体代码见 main/edu/2/suffixarray/step5/f/main.go
+		重复两次的最长连续重复子串 LC1316 https://leetcode.cn/problems/distinct-echo-substrings/
+			题解 https://leetcode.cn/problems/distinct-echo-substrings/solution/geng-kuai-de-onlog2n-jie-fa-hou-zhui-shu-8wby/
 		子串统计类题目
 			用单调栈统计矩形面积 + 用单调栈跳过已经统计的
 			https://codeforces.com/problemset/problem/123/D (注：这是《挑战》上推荐的题目)
