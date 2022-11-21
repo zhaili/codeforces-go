@@ -107,7 +107,11 @@ query getQuestionDetail($titleSlug: String!) {
 
 	question := data["data"].(map[string]interface{})["question"].(map[string]interface{})
 
-	content := question["content"].(string)
+	content, ok := question["content"].(string)
+	if !ok {
+		fmt.Println("parse question content failed")
+		return
+	}
 
 	sampleOuts, err = parseSampleText(content)
 
