@@ -74,7 +74,7 @@ func queryProblemSlug(session *grequests.Session, problemid string) (titleSlug s
 	return titleSlug
 }
 
-func queryProblemDetail(session *grequests.Session, titleSlug string) (sampleOuts [][]string, sampleIns string, codes string) {
+func queryProblemDetail(session *grequests.Session, titleSlug string) (ok bool, sampleOuts [][]string, sampleIns string, codes string) {
 	ro := &grequests.RequestOptions{
 		JSON: map[string]interface{}{
 			"operationName": "getQuestionDetail",
@@ -92,23 +92,25 @@ query getQuestionDetail($titleSlug: String!) {
     translatedContent
   }
 }`}}
-
+	ok = true
 	resp, err := session.Post(graphqlURL, ro)
 	if err != nil {
 		fmt.Println("could get problem detail")
+		ok = false
 		return
 	}
 
 	var data map[string]interface{}
 	if err = resp.JSON(&data); err != nil {
 		fmt.Printf("could not unmarshal json: %s\n", err)
+		ok = false
 		return
 	}
 
 	question := data["data"].(map[string]interface{})["question"].(map[string]interface{})
 
-	content, ok := question["content"].(string)
-	if !ok {
+	var content string
+	if content, ok = question["content"].(string); !ok {
 		fmt.Println("parse question content failed")
 		return
 	}
@@ -171,7 +173,10 @@ func FetchProblem(problemid string) (err error) {
 		return
 	}
 
-	sampleOuts, sampleIns, codes := queryProblemDetail(session, titleSlug)
+	ok, sampleOuts, sampleIns, codes := queryProblemDetail(session, titleSlug)
+	if !ok {
+		return
+	}
 
 	var p problem
 	p.id = titleSlug
