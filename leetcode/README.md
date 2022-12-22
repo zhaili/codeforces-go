@@ -2,7 +2,7 @@
 
 大家好，我是 [灵茶山艾府](https://space.bilibili.com/206214)。
 
-最近开始了个新系列：[基础算法精讲](https://space.bilibili.com/206214/channel/collectiondetail?sid=842776)。以下是视频中的题目整理，并配有对应的代码，包含 Python/Java/C++/Go 等多种语言。
+最近开了个新系列：[基础算法精讲](https://space.bilibili.com/206214/channel/collectiondetail?sid=842776)。以下是视频中的题目整理，并配有对应的代码，包含 Python/Java/C++/Go 等多种语言。
 
 |视频精讲|题目|代码|备注|
 |---|---|---|---|
@@ -13,7 +13,29 @@
 ||[15. 三数之和](https://leetcode.cn/problems/3sum/)|[代码](https://leetcode.cn/problems/3sum/solution/shuang-zhi-zhen-xiang-bu-ming-bai-yi-ge-pno55/)|包含两个优化|
 |[相向双指针 2](https://www.bilibili.com/video/BV1Qg411q7ia/)|[11. 盛最多水的容器](https://leetcode.cn/problems/container-with-most-water/)|[代码](https://leetcode.cn/problems/container-with-most-water/solutions/1974355/by-endlesscheng-f0xz/)||
 ||[42. 接雨水](https://leetcode.cn/problems/trapping-rain-water/)|[代码](https://leetcode.cn/problems/trapping-rain-water/solutions/1974340/zuo-liao-nbian-huan-bu-hui-yi-ge-shi-pin-ukwm/)|额外讲了**前后缀分解**|
-|[二分查找](https://www.bilibili.com/video/BV1AP41137w7/)|[34. 在排序数组中查找元素的第一个和最后一个位置](https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/)|[代码](https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/solutions/1980196/er-fen-cha-zhao-zong-shi-xie-bu-dui-yi-g-t9l9/)|包含三种写法|
+|[二分查找](https://www.bilibili.com/video/BV1AP41137w7/)|[34. 在排序数组中查找元素的第一个和最后一个位置](https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/)|[代码](https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/solutions/1980196/er-fen-cha-zhao-zong-shi-xie-bu-dui-yi-g-t9l9/)|三种写法|
+|[二分查找 - 习题课](https://www.bilibili.com/video/BV1QK411d76w/)|[162. 寻找峰值](https://leetcode.cn/problems/find-peak-element/)|[代码](https://leetcode.cn/problems/find-peak-element/solutions/1987497/by-endlesscheng-9ass/)||
+||[153. 寻找旋转排序数组中的最小值](https://leetcode.cn/problems/find-minimum-in-rotated-sorted-array/)|[代码](https://leetcode.cn/problems/find-minimum-in-rotated-sorted-array/solutions/1987499/by-endlesscheng-owgd/)||
+||[33. 搜索旋转排序数组](https://leetcode.cn/problems/search-in-rotated-sorted-array/)|[代码](https://leetcode.cn/problems/search-in-rotated-sorted-array/solutions/1987503/by-endlesscheng-auuh/)|两种方法|
+|[链表 - 反转系列](https://www.bilibili.com/video/BV1sd4y1x7KN/)|[206. 反转链表](https://leetcode.cn/problems/reverse-linked-list/)|[代码](https://leetcode.cn/problems/reverse-linked-list/solutions/1992225/you-xie-cuo-liao-yi-ge-shi-pin-jiang-tou-o5zy/)||
+||[92. 反转链表 II](https://leetcode.cn/problems/reverse-linked-list-ii/)|[代码](https://leetcode.cn/problems/reverse-linked-list-ii/solutions/1992226/you-xie-cuo-liao-yi-ge-shi-pin-jiang-tou-teqq/)||
+||[25. K 个一组翻转链表](https://leetcode.cn/problems/reverse-nodes-in-k-group/)|[代码](https://leetcode.cn/problems/reverse-nodes-in-k-group/solutions/1992228/you-xie-cuo-liao-yi-ge-shi-pin-jiang-tou-plfs/)||
+|[链表 - 快慢指针](https://www.bilibili.com/video/BV1KG4y1G7cu/)|[876. 链表的中间结点](https://leetcode.cn/problems/middle-of-the-linked-list/)|[代码](https://leetcode.cn/problems/middle-of-the-linked-list/solutions/1999265/mei-xiang-ming-bai-yi-ge-shi-pin-jiang-t-wzwm/)||
+||[141. 环形链表](https://leetcode.cn/problems/linked-list-cycle/)|[代码](https://leetcode.cn/problems/linked-list-cycle/solutions/1999269/mei-xiang-ming-bai-yi-ge-shi-pin-jiang-t-c4sw/)||
+||[142. 环形链表 II](https://leetcode.cn/problems/linked-list-cycle-ii/)|[代码](https://leetcode.cn/problems/linked-list-cycle-ii/solutions/1999271/mei-xiang-ming-bai-yi-ge-shi-pin-jiang-t-nvsq/)||
+||[143. 重排链表](https://leetcode.cn/problems/reorder-list/)|[代码](https://leetcode.cn/problems/reorder-list/solutions/1999276/mei-xiang-ming-bai-yi-ge-shi-pin-jiang-t-u66q/)||
+|[链表 - 删除系列](https://www.bilibili.com/video/BV1VP4y1Q71e/)|[237. 删除链表中的节点](https://leetcode.cn/problems/delete-node-in-a-linked-list/)|[代码](https://leetcode.cn/problems/delete-node-in-a-linked-list/solutions/2004056/ru-he-shan-chu-jie-dian-liu-fen-zhong-ga-x3kn/)|脑筋急转弯|
+||[19. 删除链表的倒数第 N 个结点](https://leetcode.cn/problems/remove-nth-node-from-end-of-list/)|[代码](https://leetcode.cn/problems/remove-nth-node-from-end-of-list/solutions/2004057/ru-he-shan-chu-jie-dian-liu-fen-zhong-ga-xpfs/)|前后指针|
+||[83. 删除排序链表中的重复元素](https://leetcode.cn/problems/remove-duplicates-from-sorted-list/)|[代码](https://leetcode.cn/problems/remove-duplicates-from-sorted-list/solutions/2004062/ru-he-qu-zhong-yi-ge-shi-pin-jiang-tou-p-98g7/)||
+||[82. 删除排序链表中的重复元素 II](https://leetcode.cn/problems/remove-duplicates-from-sorted-list-ii/)|[代码](https://leetcode.cn/problems/remove-duplicates-from-sorted-list-ii/solutions/2004067/ru-he-qu-zhong-yi-ge-shi-pin-jiang-tou-p-2ddn/)||
+|[二叉树与递归 - 深入理解](https://www.bilibili.com/video/BV1UD4y1Y769/)|[104. 二叉树的最大深度](https://leetcode.cn/problems/maximum-depth-of-binary-tree/)|[代码](https://leetcode.cn/problems/maximum-depth-of-binary-tree/solutions/2010612/kan-wan-zhe-ge-shi-pin-rang-ni-dui-di-gu-44uz/)|两种方法|
+|[二叉树与递归 - 灵活运用](https://www.bilibili.com/video/BV18M411z7bb/)|[100. 相同的树](https://leetcode.cn/problems/same-tree/)|[代码](https://leetcode.cn/problems/same-tree/solutions/2015056/ru-he-ling-huo-yun-yong-di-gui-lai-kan-s-empk/)||
+||[101. 对称二叉树](https://leetcode.cn/problems/symmetric-tree/)|[代码](https://leetcode.cn/problems/symmetric-tree/solutions/2015063/ru-he-ling-huo-yun-yong-di-gui-lai-kan-s-6dq5/)||
+||[110. 平衡二叉树](https://leetcode.cn/problems/balanced-binary-tree/)|[代码](https://leetcode.cn/problems/balanced-binary-tree/solutions/2015068/ru-he-ling-huo-yun-yong-di-gui-lai-kan-s-c3wj/)||
+||[199. 二叉树的右视图](https://leetcode.cn/problems/binary-tree-right-side-view/)|[代码](https://leetcode.cn/problems/binary-tree-right-side-view/solutions/2015061/ru-he-ling-huo-yun-yong-di-gui-lai-kan-s-r1nc/)||
+|[二叉树与递归 - 前序/中序/后序](https://www.bilibili.com/video/BV14G411P7C1/)|[98. 验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree/)|[代码](https://leetcode.cn/problems/validate-binary-search-tree/solutions/2020306/qian-xu-zhong-xu-hou-xu-san-chong-fang-f-yxvh/)|三种方法|
+|[二叉树与递归 - 最近公共祖先](https://www.bilibili.com/video/BV1W44y1Z7AR/)|[236. 二叉树的最近公共祖先](https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/)|[代码](https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/solutions/2023872/fen-lei-tao-lun-luan-ru-ma-yi-ge-shi-pin-2r95/)||
+||[235. 二叉搜索树的最近公共祖先](https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-search-tree/)|[代码](https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-search-tree/solutions/2023873/zui-jin-gong-gong-zu-xian-yi-ge-shi-pin-8h2zc/)||
 
 ---
 

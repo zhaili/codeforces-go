@@ -2,7 +2,6 @@ package testutil
 
 import (
 	"github.com/shirou/gopsutil/v3/process"
-	"io/ioutil"
 	"os"
 	"strings"
 	"time"
@@ -21,7 +20,7 @@ const minLenToFile = 750
 
 func handleLongOutput(s string) {
 	name := time.Now().Format("150405.000")
-	if err := ioutil.WriteFile(name+".txt", []byte(s), 0644); err != nil {
+	if err := os.WriteFile(name+".txt", []byte(s), 0644); err != nil {
 		panic(err)
 	}
 }
@@ -56,4 +55,12 @@ func IsDebugging() bool {
 		pid, _ = p.Ppid()
 	}
 	return false
+}
+
+func TransEdges(edges [][2]int) [][]int {
+	es := make([][]int, len(edges))
+	for i, e := range edges {
+		es[i] = []int{e[0], e[1]}
+	}
+	return es
 }
