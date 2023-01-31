@@ -96,7 +96,7 @@ https://oeis.org/A064413 EKG sequence (or ECG sequence)
 a(1) = 1; a(2) = 2; for n > 2, a(n) = smallest number not already used which shares a factor with a(n-1)
 
 https://oeis.org/A002326 least m > 0 such that 2n+1 divides 2^m-1
-https://leetcode-cn.com/problems/minimum-number-of-operations-to-reinitialize-a-permutation/
+LC1806 https://leetcode-cn.com/problems/minimum-number-of-operations-to-reinitialize-a-permutation/
 
 http://oeis.org/A003136 Loeschian number: numbers of the form x^2 + xy + y^2
 https://en.wikipedia.org/wiki/Loeschian_number
@@ -140,6 +140,10 @@ https://oeis.org/A005245 The (Mahler-Popken) complexity of n: minimal number of 
 https://oeis.org/A001108 a(n)-th triangular number is a square: a(n+1) = 6*a(n) - a(n-1) + 2, with a(0) = 0, a(1) = 1
 https://oeis.org/A001109 a(n)^2 is a triangular number: a(n) = 6*a(n-1) - a(n-2) with a(0)=0, a(1)=1
 https://oeis.org/A001110 Square triangular numbers: numbers that are both triangular and square
+
+https://oeis.org/A034836 Number of ways to write n as n = x*y*z with 1 <= x <= y <= z
+https://oeis.org/A331072 A034836 前缀和 O(n^(2/3))
+	https://atcoder.jp/contests/abc227/tasks/abc227_c
 
 挑战 2.6 节练习题
 2429 分解 LCM/GCD = a*b 且 gcd(a,b)=1 且 a+b 最小
@@ -195,6 +199,9 @@ func _(abs func(int64) int64, max func(int64, int64) int64) {
 	TIPS: 一般 LCM 的题目都需要用 LCM=x*y/GCD 转换成研究 GCD 的性质
 	todo https://atcoder.jp/contests/abc162/tasks/abc162_e
 	     https://atcoder.jp/contests/abc206/tasks/abc206_e
+
+	a 中任意两数互质 <=> 每个质数至多整除一个 a[i]
+	https://codeforces.com/contest/1770/problem/C
 
 	todo https://codeforces.com/contest/1462/problem/D 的 O(nlogn) 解法
 
@@ -306,6 +313,7 @@ func _(abs func(int64) int64, max func(int64, int64) int64) {
 
 	// 统计数组的所有子序列的 GCD 的不同个数，复杂度 O(Clog^2C)
 	// LC1819 https://leetcode-cn.com/problems/number-of-different-subsequences-gcds/
+	// todo 补充题解
 	countDifferentSubsequenceGCDs := func(a []int, gcd func(int, int) int) (ans int) {
 		const mx int = 4e5 //
 		has := [mx + 1]bool{}
@@ -522,8 +530,8 @@ func _(abs func(int64) int64, max func(int64, int64) int64) {
 	O(n^(2/3)log^(1/3)(n)) https://codeforces.com/blog/entry/91632
 
 	质数的幂次组成的集合 {p^k} https://oeis.org/A000961
-		补集 https://oeis.org/A024619
-		Exponential of Mangoldt function https://oeis.org/A014963
+	补集 https://oeis.org/A024619
+	Exponential of Mangoldt function https://oeis.org/A014963
 
 	质数前缀和 http://oeis.org/A007504
 	a(n) ~ n^2 * log(n) / 2
@@ -537,12 +545,27 @@ func _(abs func(int64) int64, max func(int64, int64) int64) {
 	6469693230, 200560490130, 7420738134810, 304250263527210, 13082761331670030, 614889782588491410
 
 	质数间隙 https://en.wikipedia.org/wiki/Prime_gap https://oeis.org/A001223
-		Positions of records https://oeis.org/A002386 https://oeis.org/A005669
-		Values of records https://oeis.org/A005250
-		Gap 均值 https://oeis.org/A286888 a(n)= floor((prime(n) - 2)/(n - 1))
-		相关题目 https://www.luogu.com.cn/problem/P6104 https://class.luogu.com.cn/classroom/lgr69
-		https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435a5b/000000000077a8e6
-		Numbers whose distance to the closest prime number is a prime number http://oeis.org/A160666
+	Positions of records https://oeis.org/A002386 https://oeis.org/A005669
+	Values of records https://oeis.org/A005250
+	Gap 均值 https://oeis.org/A286888 a(n)= floor((prime(n) - 2)/(n - 1))
+	相关题目 https://www.luogu.com.cn/problem/P6104 https://class.luogu.com.cn/classroom/lgr69
+	https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435a5b/000000000077a8e6
+	Numbers whose distance to the closest prime number is a prime number http://oeis.org/A160666
+
+	孪生素数 https://en.wikipedia.org/wiki/Twin_prime https://oeis.org/A001359 https://oeis.org/A006512 https://oeis.org/A077800
+	https://oeis.org/A113274 Record gaps between twin primes
+		Upper bound: gaps between twin primes are smaller than 0.76*(log p)^3, where p is the prime at the end of the gap.
+	https://oeis.org/A113275 Lesser of twin primes for which the gap before the following twin primes is a record
+
+	Prime k-tuple https://en.wikipedia.org/wiki/Prime_k-tuple
+	Prime constellations / diameter https://en.wikipedia.org/wiki/Prime_k-tuple#Prime_constellations https://oeis.org/A008407
+	Cousin prime https://en.wikipedia.org/wiki/Cousin_prime https://oeis.org/A023200
+	Sexy prime https://en.wikipedia.org/wiki/Sexy_prime https://oeis.org/A023201
+	Prime triplet https://en.wikipedia.org/wiki/Prime_triplet https://oeis.org/A098420
+	Primes in arithmetic progression https://en.wikipedia.org/wiki/Primes_in_arithmetic_progression
+
+	First Hardy–Littlewood conjecture https://en.wikipedia.org/wiki/First_Hardy%E2%80%93Littlewood_conjecture
+	Second Hardy–Littlewood conjecture https://en.wikipedia.org/wiki/Second_Hardy%E2%80%93Littlewood_conjecture 哈代-李特尔伍德第二猜想
 
 	https://oeis.org/A007918 Least prime >= n (version 1 of the "next prime" function)
 	https://oeis.org/A007920 Smallest number k such that n + k is prime
@@ -559,12 +582,12 @@ func _(abs func(int64) int64, max func(int64, int64) int64) {
 	不与质数相邻的合数 http://oeis.org/A079364
 
 	半素数 https://oeis.org/A001358 也叫双素数/二次殆素数 Semiprimes (or biprimes): products of two primes
-		https://en.wikipedia.org/wiki/Semiprime
-		https://en.wikipedia.org/wiki/Almost_prime
-		非平方半素数 https://oeis.org/A006881 Squarefree semiprimes: Numbers that are the product of two distinct primes.
+	https://en.wikipedia.org/wiki/Semiprime
+	https://en.wikipedia.org/wiki/Almost_prime
+	非平方半素数 https://oeis.org/A006881 Squarefree semiprimes: Numbers that are the product of two distinct primes.
 
 	绝对素数 https://oeis.org/A003459 各位数字可以任意交换位置，其结果仍为素数
-		https://en.wikipedia.org/wiki/Permutable_prime
+	https://en.wikipedia.org/wiki/Permutable_prime
 
 	哥德巴赫猜想：大于 2 的偶数，都可表示成两个素数之和。
 	偶数分拆的最小质数 Goldbach’s conjecture https://oeis.org/A020481
@@ -689,7 +712,7 @@ func _(abs func(int64) int64, max func(int64, int64) int64) {
 			if pid[i] == 0 {
 				primes = append(primes, i)
 				pid[i] = len(primes)
-				for j := 2 * i; j <= mx; j += i {
+				for j := i * i; j <= mx; j += i {
 					pid[j] = -1
 				}
 			}
@@ -1279,7 +1302,7 @@ func _(abs func(int64) int64, max func(int64, int64) int64) {
 				for x /= p; lpf[x] == p; x /= p {
 					e++
 				}
-				// do(p,e) ...
+				// do(p, e) ...
 
 			}
 		}
@@ -2127,7 +2150,7 @@ func _(abs func(int64) int64, max func(int64, int64) int64) {
 	// Number of ways to choose n disjoint pairs of items from 2*n items
 	// Number of perfect matchings in the complete graph K(2n)
 	// https://atcoder.jp/contests/abc236/tasks/abc236_d
-	// LC1359 有效的快递序列数目 https://leetcode-cn.com/contest/biweekly-contest-20/problems/count-all-valid-pickup-and-delivery-options/
+	// LC1359 有效的快递序列数目 https://leetcode-cn.com/problems/count-all-valid-pickup-and-delivery-options/
 	// 奇阶乘模 2^64 http://acm.hdu.edu.cn/showproblem.php?pid=6481 https://www.90yang.com/hdu6481-a-math-problem/
 	calcOddFactorialBig := func(n int) *big.Int {
 		return new(big.Int).Rsh(new(big.Int).MulRange(int64(n+1), int64(2*n)), uint(n))
@@ -2144,7 +2167,8 @@ func _(abs func(int64) int64, max func(int64, int64) int64) {
 	// = 1, otherwise
 
 	// binomial(n, floor(n/2)) https://oeis.org/A001405
-	// a(n) ~ 2^n / sqrt(π * n/2)
+	// a(n) ~ 2^n / sqrt(π * n/2)     O(2^n/sqrt(n))
+	// a(2n) ~ 4^n / sqrt(πn)         O(4^n/sqrt(n))
 	// 从一个大小为 n 的集合的子集中随机选一个，选到 floor(n/2) 大小的子集的概率约为 1 / sqrt(π * n/2)
 	// Sperner's theorem says that this is the maximal number of subsets of an n-set such that no one contains another
 	// EXTRA: https://oeis.org/A000984 Central binomial coefficients: binomial(2*n,n) = (2*n)!/(n!)^2
@@ -2243,7 +2267,7 @@ func _(abs func(int64) int64, max func(int64, int64) int64) {
 		// https://oeis.org/A000108
 		// 从 n=0 开始：1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862, 16796, 58786, 208012, 742900, 2674440, 9694845, 35357670, 129644790
 		// 所有在 n×n 格点中不越过对角线的单调路径的个数
-		// Number of noncrossing partitions of the n-set (不相交握手问题) LC1259 https://leetcode-cn.com/contest/biweekly-contest-13/problems/handshakes-that-dont-cross/
+		// Number of noncrossing partitions of the n-set (不相交握手问题) LC1259 https://leetcode-cn.com/problems/handshakes-that-dont-cross/
 		// Dyck Path https://mathworld.wolfram.com/DyckPath.html
 		// https://www.luogu.com.cn/problem/P1641
 		//
@@ -2342,7 +2366,7 @@ func _(abs func(int64) int64, max func(int64, int64) int64) {
 	//    将 n 个元素排成 k 个非空循环排列的方法数
 	//    s(n,k) 的递推公式： s(n,k)=(n-1)*s(n-1,k)+s(n-1,k-1), 1<=k<=n-1
 	//    边界条件：s(n,0)=0, n>=1    s(n,n)=1, n>=0
-	//    LC241D https://leetcode-cn.com/contest/weekly-contest-241/problems/number-of-ways-to-rearrange-sticks-with-k-sticks-visible/
+	//    LC1866 https://leetcode-cn.com/problems/number-of-ways-to-rearrange-sticks-with-k-sticks-visible/
 	//    建筑师 https://www.luogu.com.cn/problem/P4609
 	//    UVa1638 https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=825&page=show_problem&problem=4513
 	//    todo https://www.luogu.com.cn/problem/P5408
@@ -3047,7 +3071,7 @@ The number of 3 X n matrices of integers for which the upper-left hand corner is
 the rows and columns are weakly increasing, and two adjacent entries differ by at most 1
 a(n+2) = 5*a(n+1) - 2*a(n), with a(0) = 1, a(1) = 4
 https://oeis.org/A052913
-相关题目 LC1411 https://leetcode-cn.com/problems/number-of-ways-to-paint-n-x-3-grid/ https://leetcode-cn.com/contest/weekly-contest-184/
+相关题目 LC1411 https://leetcode-cn.com/problems/number-of-ways-to-paint-n-x-3-grid/
 
 男厕问题 / 电话问题 https://oeis.org/A185456
 Assume that the first person to use a bank of payphones selects one at the end,

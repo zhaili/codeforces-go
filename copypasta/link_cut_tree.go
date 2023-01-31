@@ -5,7 +5,7 @@ https://en.wikipedia.org/wiki/Link/cut_tree
 https://oi-wiki.org/ds/lct/
 
 将一棵树剖分成由若干实边组成的实链，实链与实链之间用虚边相连
-一颗 splay 对应一条实链，其中序遍历就是该实链从顶部往下的路径
+一棵 splay 对应一条实链，其中序遍历就是该实链从顶部往下的路径
 这样一条实链上某个节点的父/子节点就对应着该节点在 splay 上的前驱/后继
 
 https://www.cnblogs.com/flashhu/p/8324551.html
@@ -19,6 +19,7 @@ TIPS: 对于卡常的题目，用 findRoot 判断连通性的逻辑可以用并�
 魔法森林（维护最大边权）https://www.luogu.com.cn/problem/P2387 AC 代码 https://www.luogu.com.cn/record/46975435 去掉 link 和 cut 的多余判断后 https://www.luogu.com.cn/record/46977629
 最小差值生成树 https://www.luogu.com.cn/problem/P4234 https://codeforces.com/edu/course/2/lesson/7/2/practice/contest/289391/problem/F
 todo https://ac.nowcoder.com/acm/contest/4643/F 题解 https://ac.nowcoder.com/discuss/387703
+ 动态修改 + 任意两点 LCA 的权值的期望 https://codeforces.com/problemset/problem/482/E
 */
 
 type lctNode struct {

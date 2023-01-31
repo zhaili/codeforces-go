@@ -22,6 +22,7 @@ https://zhuanlan.zhihu.com/p/553192435
 // 并查集时间复杂度证明 https://oi-wiki.org/ds/dsu-complexity/
 //
 // 模板题 https://www.luogu.com.cn/problem/P3367
+// https://atcoder.jp/contests/arc097/tasks/arc097_b
 // 接水问题 https://codeforces.com/problemset/problem/371/D
 // 三维接雨水 https://www.luogu.com.cn/problem/P5930 LC407 https://leetcode-cn.com/problems/trapping-rain-water-ii/
 // 使某些点不在环上需要删除的最少边数 https://ac.nowcoder.com/acm/contest/7780/C
@@ -102,7 +103,7 @@ func _(n int) {
 
 	{
 		// 离散化版本
-		// https://leetcode.cn/problems/most-stones-removed-with-same-row-or-column/
+		// LC947 https://leetcode.cn/problems/most-stones-removed-with-same-row-or-column/
 		fa := map[int]int{}
 		groups := 0
 		var find func(int) int

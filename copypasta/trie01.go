@@ -9,7 +9,7 @@ import (
 // func init() { debug.SetGCPercent(-1) }
 
 // 异或字典树
-// 一颗（所有叶节点深度都相同的）二叉树
+// 一棵（所有叶节点深度都相同的）二叉树
 // 模板题 https://codeforces.com/problemset/problem/706/D
 // 数组前缀异或数组后缀的最大值（前后缀不重叠）https://codeforces.com/problemset/problem/282/E
 // https://codeforces.com/contest/1446/problem/C
@@ -128,7 +128,7 @@ func (t *trie01) maxXorWithLimitVal(v, limit int) (ans int) {
 
 // 求与 v 异或值不超过 limit 的元素个数
 // 核心原理是，当 limit+1 的某一位是 1 的时候，若该位异或值取 0，则后面的位是可以取任意数字的
-// 如果在 limit 上而不是 limit+1 上讨论，就要处理当前异或为 1 的情况了，比较麻烦
+// 如果在 limit 上而不是 limit+1 上讨论，就要单独处理走到叶子的情况了（恰好等于 limit）
 // LC1803 https://leetcode-cn.com/problems/count-pairs-with-xor-in-a-range/
 // 补集 https://codeforces.com/problemset/problem/665/E
 // https://codeforces.com/problemset/problem/817/E
@@ -264,7 +264,7 @@ func (o trie01Node) put(v, k int) *trie01Node {
 func generateMaxNodes01TrieData(n, maxV int) []int {
 	shift := bits.Len(uint(maxV)) - bits.Len(uint(n)) + 1
 	a := make([]int, 0, n)
-	// 构建一颗上半部分为完全二叉树，下半部分为一串 0...0 的 01-trie
+	// 构建一棵上半部分为完全二叉树，下半部分为一串 0...0 的 01-trie
 	for i := 0; i<<shift <= maxV; i++ {
 		v := i << shift
 		a = append(a, v)

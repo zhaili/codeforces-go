@@ -10,6 +10,8 @@ import (
 	"time"
 )
 
+// Competitive Programming Roadmap (target: [gray, blue]) https://codeforces.com/blog/entry/111099
+
 // 解决问题的一般方法 https://codeforces.com/blog/entry/92248?#comment-809401
 // General ideas https://codeforces.com/blog/entry/48417
 // 从特殊到一般：尝试修改条件或缩小题目的数据范围，先研究某个特殊情况下的思路，然后再逐渐扩大数据范围来思考怎么改进算法
@@ -18,6 +20,8 @@ import (
 /* 贪心
 邻项交换
 LC1665 完成所有任务的最少初始能量 https://leetcode.cn/problems/minimum-initial-energy-to-finish-tasks/
+https://atcoder.jp/contests/arc147/tasks/arc147_b
+https://atcoder.jp/contests/abc268/tasks/abc268_f
 
 区间与点的最大匹配/覆盖问题
 https://www.luogu.com.cn/problem/P2887
@@ -29,6 +33,16 @@ https://codeforces.com/problemset/problem/863/E
 
 难题
 2800 https://codeforces.com/problemset/problem/521/D
+
+构造
+https://atcoder.jp/contests/arc145/tasks/arc145_a
+
+不好想到的构造
+https://atcoder.jp/contests/abc178/tasks/abc178_f
+*/
+
+/* 不变量
+https://codeforces.com/contest/1775/problem/E
 */
 
 // 异类双变量：固定某变量统计另一变量的 [0,n)
@@ -51,6 +65,8 @@ https://codeforces.com/problemset/problem/863/E
 // 邻项修改->前缀和->单项修改 https://codeforces.com/problemset/problem/1254/B2 https://ac.nowcoder.com/acm/contest/7612/C
 
 // 双指针：如果 left == right 时 while 一定为 false，则可以省略 while 中 left < right 的判断
+// 双序列双指针
+// 背向双指针 LC360 https://leetcode.cn/problems/sort-transformed-array/
 
 /* 横看成岭侧成峰
 转换为距离的众数 https://codeforces.com/problemset/problem/1365/C
@@ -62,8 +78,8 @@ https://codeforces.com/problemset/problem/863/E
 和式的另一视角。若每一项的值都在一个范围，不妨考虑另一个问题：值为 x 的项有多少个？https://atcoder.jp/contests/abc162/tasks/abc162_e
 对所有排列考察所有子区间的性质，可以转换成对所有子区间考察所有排列。将子区间内部的排列和区间外部的排列进行区分，内部的性质单独研究，外部的当作 (n-(r-l))! 个排列 https://codeforces.com/problemset/problem/1284/C
 从最大值入手 https://codeforces.com/problemset/problem/1381/B
-等效性 https://leetcode-cn.com/contest/biweekly-contest-8/problems/maximum-number-of-ones/
-https://leetcode-cn.com/contest/biweekly-contest-31/problems/minimum-number-of-increments-on-subarrays-to-form-a-target-array/
+等效性 LC1183 https://leetcode-cn.com/problems/maximum-number-of-ones/
+LC1526 https://leetcode-cn.com/problems/minimum-number-of-increments-on-subarrays-to-form-a-target-array/
 贡献 http://codeforces.com/problemset/problem/912/D
 贡献 https://codeforces.com/problemset/problem/1208/E
 置换 https://atcoder.jp/contests/abc250/tasks/abc250_e
@@ -78,7 +94,7 @@ https://codeforces.com/problemset/problem/369/E
 https://codeforces.com/problemset/problem/1644/D
 https://codeforces.com/problemset/problem/1638/D
 https://codeforces.com/problemset/problem/1672/D
-逆向思维 https://leetcode-cn.com/contest/biweekly-contest-9/problems/minimum-time-to-build-blocks/
+逆向思维 LC1199 https://leetcode-cn.com/problems/minimum-time-to-build-blocks/
 */
 
 /* 奇偶性
@@ -129,6 +145,7 @@ https://codeforces.com/problemset/problem/707/D
 对于可以回收的情况（如 append 在超过 cap 时），使用 debug.SetGCPercent(-1) 虽然会减少些许耗时，但若有大量内存没被回收，会有 MLE 的风险
 其他情况下使用 debug.SetGCPercent(-1) 对耗时和内存使用无明显影响
 对于多组数据的情况，若禁用 GC 会 MLE，可在每组数据的开头或末尾调用 runtime.GC() 或 debug.FreeOSMemory() 手动 GC
+还可以尝试 1.19 新增的 debug.SetMemoryLimit
 参考 https://draveness.me/golang/docs/part3-runtime/ch07-memory/golang-garbage-collector/
     https://zhuanlan.zhihu.com/p/77943973
 
@@ -513,7 +530,7 @@ func _() {
 	}
 
 	// 分组前缀和（具体见 query 上的注释）
-	// LC1664 https://leetcode-cn.com/contest/weekly-contest-216/problems/ways-to-make-a-fair-array/
+	// LC1664 https://leetcode-cn.com/problems/ways-to-make-a-fair-array/
 	groupPrefixSum := func(a []int, k int) {
 		// 补 0 简化后续逻辑
 		n := len(a)
@@ -659,6 +676,7 @@ func _() {
 
 	// 差分
 	// 浮点数差分（也可以用扫描线）https://atcoder.jp/contests/abc274/tasks/abc274_f
+	// 二阶差分 https://codeforces.com/problemset/problem/1661/D
 
 	// 离散差分，传入闭区间列表 ps，不要求有序
 	// https://codeforces.com/problemset/problem/1420/D
@@ -706,24 +724,36 @@ func _() {
 
 	// 二维差分
 	// https://blog.csdn.net/weixin_43914593/article/details/113782108
+	// 模板题 LC2536 https://leetcode.cn/problems/increment-submatrices-by-one/
+	// LC2132 https://leetcode-cn.com/problems/stamping-the-grid/（也可以不用差分）
 	// https://www.luogu.com.cn/problem/P3397
-	// https://leetcode-cn.com/problems/stamping-the-grid/（也可以不用差分）
 	diff2D := func(n, m int) {
-		diff := make([][]int, n+1)
+		diff := make([][]int, n+2)
 		for i := range diff {
-			diff[i] = make([]int, m+1)
+			diff[i] = make([]int, m+2)
 		}
 		// 将区域 r1<=r<=r2 && c1<=c<=c2 上的数都加上 x
+		// 多 +1 是为了方便求前缀和
 		update := func(r1, c1, r2, c2, x int) {
-			r2++
-			c2++
-			diff[r1][c1] += x
-			diff[r1][c2] -= x
-			diff[r2][c1] -= x
-			diff[r2][c2] += x
+			diff[r1+1][c1+1] += x
+			diff[r1+1][c2+2] -= x
+			diff[r2+2][c1+1] -= x
+			diff[r2+2][c2+2] += x
 		}
-		// 还原二维差分矩阵对应的计数矩阵
-		restore := func() [][]int {
+		// 直接在 diff 上还原原始矩阵
+		for i := 1; i <= n; i++ {
+			for j := 1; j <= m; j++ {
+				diff[i][j] += diff[i][j-1] + diff[i-1][j] - diff[i-1][j-1]
+			}
+		}
+		// 保留 n*m 的计数矩阵
+		diff = diff[1 : n+1]
+		for i, row := range diff {
+			diff[i] = row[1 : m+1]
+		}
+
+		// EXTRA: 还原二维差分矩阵对应的计数矩阵，保留原始 diff
+		{
 			ori := make([][]int, n+1)
 			ori[0] = make([]int, m+1)
 			for i, row := range diff[:n] {
@@ -737,27 +767,9 @@ func _() {
 			for i, row := range ori {
 				ori[i] = row[1:]
 			}
-			return ori
-		}
-		// 直接在 diff 上还原
-		restoreInPlace := func() {
-			for j := 1; j < m; j++ {
-				diff[0][j] += diff[0][j-1]
-			}
-			for i := 1; i < n; i++ {
-				diff[i][0] += diff[i-1][0]
-				for j := 1; j < m; j++ {
-					diff[i][j] += diff[i][j-1] + diff[i-1][j] - diff[i-1][j-1]
-				}
-			}
-			// 保留 n*m 的计数矩阵
-			diff = diff[:n]
-			for i, row := range diff {
-				diff[i] = row[:m]
-			}
 		}
 
-		_, _, _ = update, restore, restoreInPlace
+		_ = update
 	}
 
 	reverse := func(a []byte) []byte {
@@ -946,7 +958,7 @@ func _() {
 	// 离散化，返回离散化后的序列（名次）
 	// discrete([]int{100,20,50,50}, 1) => []int{3,1,2,2}
 	// 有些题目需要把 0 加进去离散化，请特别注意 https://atcoder.jp/contests/jsc2021/tasks/jsc2021_f
-	// https://leetcode-cn.com/contest/biweekly-contest-18/problems/rank-transform-of-an-array/
+	// LC1331 https://leetcode-cn.com/problems/rank-transform-of-an-array/
 	discrete := func(a []int, startIndex int) (kth []int) {
 		type vi struct{ v, i int }
 		ps := make([]vi, len(a))

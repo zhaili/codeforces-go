@@ -80,6 +80,7 @@ func _(min, max func(int, int) int) {
 	// TODO https://oi-wiki.org/string/z-func/
 	// https://cp-algorithms.com/string/prefix-function.html
 	// https://algs4.cs.princeton.edu/code/edu/princeton/cs/algs4/KMP.java.html
+	//
 	// 模板题 https://loj.ac/p/103 https://www.luogu.com.cn/problem/P3375
 	//       LC1392 https://leetcode-cn.com/problems/longest-happy-prefix/
 	// 最长回文前缀 LC214 https://leetcode.cn/problems/shortest-palindrome/
@@ -169,6 +170,8 @@ func _(min, max func(int, int) int) {
 	//		构造 t+s
 	// 最短的包含 s 和 t 的字符串 https://codeforces.com/edu/course/2/lesson/3/4/practice/contest/272262/problem/F
 	// 		构造 s+t 和 t+s
+	// 判断一个字符串 t 是否为 prefix+reverse(s)+suffix，其中 prefix+suffix=s https://atcoder.jp/contests/abc284/tasks/abc284_f
+	//      构造 t+reverse(t) 和 reverse(t)+t
 	calcZ := func(s string) []int {
 		n := len(s)
 		z := make([]int, n)
@@ -558,7 +561,7 @@ func _(min, max func(int, int) int) {
 
 		// EXTRA: 比较两个子串，返回 strings.Compare(s[l1:r1], s[l2:r2])，注意这里是左闭右开区间
 		// https://codeforces.com/problemset/problem/611/D
-		// https://leetcode-cn.com/contest/biweekly-contest-59/problems/number-of-ways-to-separate-numbers/
+		// LC1977 https://leetcode-cn.com/problems/number-of-ways-to-separate-numbers/
 		compareSub := func(l1, r1, l2, r2 int) int {
 			len1, len2 := r1-l1, r2-l2
 			l := lcp(l1, l2)
@@ -578,7 +581,7 @@ func _(min, max func(int, int) int) {
 		}
 
 		// EXTRA: 可重叠最长重复子串
-		// https://leetcode-cn.com/problems/longest-duplicate-substring/ https://leetcode-cn.com/problems/longest-repeating-substring/
+		// LC1044 https://leetcode-cn.com/problems/longest-duplicate-substring/
 		longestDupSubstring := func() string {
 			maxP, maxH := 0, 0
 			for i, h := range height {
